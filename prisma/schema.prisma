@@ -97,12 +97,12 @@ model IdleAsset {
   land_type        LandType      @relation(fields: [land_type_id], references: [id])
   land_type_id     BigInt        @unique
   area             Decimal       @default(0)
-  holding_type     HoldingType   @relation(fields: [holding_type_id], references: [id])
-  holding_type_id  BigInt        @unique
+  holding_type     HoldingType?  @relation(fields: [holding_type_id], references: [id])
+  holding_type_id  BigInt?       @unique
   use_partition    UserPartition @relation(fields: [use_partition_id], references: [id])
   use_partition_id BigInt        @unique
-  land_use_type    LandUseType   @relation(fields: [land_use_type_id], references: [id])
-  land_use_type_id BigInt        @unique
+  land_use_type    LandUseType?  @relation(fields: [land_use_type_id], references: [id])
+  land_use_type_id BigInt?       @unique
   status           Status
   vacancy_rate     Decimal
   remark           String?
