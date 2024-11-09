@@ -2,7 +2,6 @@ import { AchievementsCarousel } from '@/app/components/achievements-carousel';
 import { SearchAssets } from '@/app/components/search-assets';
 import { ThemeCards } from '@/app/components/theme-cards';
 import { NewsList } from '@/app/components/news-list';
-import { Footer } from '@/app/components/footer';
 
 export default function Home() {
   return (
@@ -30,7 +29,6 @@ export default function Home() {
           <NewsList />
         </div>
       </div>
-      <Footer />
     </>
   );
 }
