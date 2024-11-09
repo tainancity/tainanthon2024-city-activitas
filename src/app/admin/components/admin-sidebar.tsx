@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Map, ChartSpline, ChevronUp, User2 } from 'lucide-react';
+import { Home, ChartSpline, ChevronUp, User2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import {
   Sidebar,
