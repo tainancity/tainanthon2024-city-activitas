@@ -1,3 +1,5 @@
+'use client';
+
 import { Navbar } from '@/app/components/navbar';
 import { Search } from '@/app/components/search';
 import { AchievementsCarousel } from '@/app/components/achievements-carousel';
@@ -6,8 +8,10 @@ import { ThemeCards } from '@/app/components/theme-cards';
 import { NewsList } from '@/app/components/news-list';
 import { Footer } from '@/app/components/footer';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
   return (
     <>
       <div className="hidden flex-col md:flex">
@@ -19,7 +23,13 @@ export default function Home() {
             <Navbar />
             <div className="ml-auto flex items-center space-x-4">
               <Search />
-              <Button>登入</Button>
+              <Button
+                onClick={() => {
+                  router.push('/');
+                }}
+              >
+                我想提案
+              </Button>
             </div>
           </div>
         </div>
