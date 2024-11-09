@@ -1,3 +1,3 @@
 export default function Page() {
-  return <div>媒合成果</div>;
+  return <div>最新消息</div>;
 }
