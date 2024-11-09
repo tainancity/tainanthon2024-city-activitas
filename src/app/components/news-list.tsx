@@ -1,12 +1,14 @@
+'use client';
+
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useRouter } from 'next/navigation';
 
 interface News {
   date: string;
@@ -28,22 +30,31 @@ const newsList: News[] = [
   },
 ];
 
-export const NewsList = () => (
-  <Table>
-    <TableCaption>A list of your recent invoices.</TableCaption>
-    <TableHeader>
-      <TableRow>
-        <TableHead className="w-[160px] text-right">日期</TableHead>
-        <TableHead>標題</TableHead>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      {newsList.map((news, index) => (
-        <TableRow key={index}>
-          <TableCell className="text-right">{news.date}</TableCell>
-          <TableCell>{news.title}</TableCell>
+export const NewsList = () => {
+  const router = useRouter();
+
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[120px]">日期</TableHead>
+          <TableHead>標題</TableHead>
         </TableRow>
-      ))}
-    </TableBody>
-  </Table>
-);
+      </TableHeader>
+      <TableBody>
+        {newsList.map((news, index) => (
+          <TableRow
+            key={index}
+            onClick={() => {
+              router.push('/');
+            }}
+            className="cursor-pointer"
+          >
+            <TableCell>{news.date}</TableCell>
+            <TableCell>{news.title}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+};
