@@ -16,7 +16,9 @@ export default function Layout({ children }: ReactNode) {
         <div className="border-b">
           <div className="flex h-16 items-center px-4 max-w-screen-xl mx-auto">
             <div className="mx-4">
-              <h1 className="text-2xl font-bold">CityActivitas</h1>
+              <a href="/" className="text-2xl font-bold cursor-pointer">
+                CityActivitas
+              </a>
             </div>
             <Navbar />
             <div className="ml-auto flex items-center space-x-4">
