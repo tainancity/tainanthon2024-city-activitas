@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Footer } from '@/app/components/footer';
 import { useRouter } from 'next/navigation';
 
-export default function Layout({ children }: ReactNode) {
+export default function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   return (
