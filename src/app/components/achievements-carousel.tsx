@@ -21,7 +21,11 @@ export const AchievementsCarousel = () => (
           <div className="p-1">
             <Card>
               <CardContent className="flex aspect-video items-center justify-center p-6">
-                <span className="text-4xl font-semibold">{index + 1}</span>
+                <img
+                  src="https://via.placeholder.com/960x540"
+                  alt="Header"
+                  className="w-full object-cover rounded-t-md"
+                />
               </CardContent>
             </Card>
           </div>
