@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import supabase from '@/lib/supabaseClient';
 import PublicLayout from '@/components/layout';
@@ -54,11 +54,13 @@ export default function Page() {
   }, []);
 
   return (
-    <PublicLayout>
-      <Block>
-        <h2 className="text-2xl font-bold">可利用空間</h2>
-        <DataTable columns={columns} data={idleAssets} />
-      </Block>
-    </PublicLayout>
+    <Suspense>
+      <PublicLayout>
+        <Block>
+          <h2 className="text-2xl font-bold">可利用空間</h2>
+          <DataTable columns={columns} data={idleAssets} />
+        </Block>
+      </PublicLayout>
+    </Suspense>
   );
 }
