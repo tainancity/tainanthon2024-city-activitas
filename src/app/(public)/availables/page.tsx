@@ -8,7 +8,7 @@ import { Block } from '@/app/components/block';
 import { DataTable } from './components/data-table';
 import columns from './components/columns';
 
-export default function Page() {
+function IdleAssetsList() {
   const supabaseQuery = supabase.from('test_assets').select(
     `
     id,
@@ -52,15 +52,18 @@ export default function Page() {
     };
     fetchIdleAssets();
   }, []);
+  return <DataTable columns={columns} data={idleAssets} />;
+}
 
+export default function Page() {
   return (
-    <Suspense>
-      <PublicLayout>
-        <Block>
-          <h2 className="text-2xl font-bold">可利用空間</h2>
-          <DataTable columns={columns} data={idleAssets} />
-        </Block>
-      </PublicLayout>
-    </Suspense>
+    <PublicLayout>
+      <Block>
+        <h2 className="text-2xl font-bold">可利用空間</h2>
+        <Suspense>
+          <IdleAssetsList />
+        </Suspense>
+      </Block>
+    </PublicLayout>
   );
 }
