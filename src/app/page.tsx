@@ -1,3 +1,4 @@
+import PublicLayout from '@/components/layout';
 import { AchievementsCarousel } from '@/app/components/achievements-carousel';
 import { SearchAssets } from '@/app/components/search-assets';
 import { ThemeCards } from '@/app/components/theme-cards';
@@ -6,7 +7,7 @@ import { Block } from '@/app/components/block';
 
 export default function Home() {
   return (
-    <>
+    <PublicLayout>
       <Block>
         <div className="flex items-center justify-between space-y-2">
           <AchievementsCarousel />
@@ -30,6 +31,6 @@ export default function Home() {
           <NewsList />
         </div>
       </Block>
-    </>
+    </PublicLayout>
   );
 }
