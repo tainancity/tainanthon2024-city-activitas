@@ -3,12 +3,13 @@
 import { useParams } from 'next/navigation';
 import { AchievementsCarousel } from '@/app/components/achievements-carousel';
 import { Block } from '@/app/components/block';
+import PublicLayout from '@/components/layout';
 
 export default function Page() {
   const { id } = useParams();
 
   return (
-    <>
+    <PublicLayout>
       <Block>
         <div className="flex items-center justify-between space-y-2">
           <AchievementsCarousel />
@@ -20,6 +21,6 @@ export default function Page() {
           {/* TODO */}
         </div>
       </Block>
-    </>
+    </PublicLayout>
   );
 }
