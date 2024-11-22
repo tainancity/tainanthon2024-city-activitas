@@ -1,3 +1,5 @@
+import PublicLayout from '@/components/layout';
+
 export default function Page() {
-  return <div>意見回饋</div>;
+  return <PublicLayout>意見回饋</PublicLayout>;
 }
