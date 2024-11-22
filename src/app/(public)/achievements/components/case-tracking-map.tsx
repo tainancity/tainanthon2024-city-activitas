@@ -44,15 +44,15 @@ const contentStyle = {
 // 根據案件狀態獲取標記顏色
 const getMarkerOptions = (state: string) => {
   const colorMap = {
-    待處理: '#4CAF50', // 綠色
-    進行中: '#FFC107', // 黃色
-    已完成: '#2196F3', // 藍色
-    已媒合: '#9E9E9E', // 灰色
+    // 待處理: '#4CAF50', // 綠色
+    // 進行中: '#FFC107', // 黃色
+    // 已完成: '#2196F3', // 藍色
+    // 已媒合: '#9E9E9E', // 灰色
   };
 
   return {
     // path: window.google.maps.SymbolPath.MARKER,
-    fillColor: colorMap[state] || '#FF0000', // 默認紅色
+    fillColor: /* colorMap[state] || */ '#FF0000', // 默認紅色
     fillOpacity: 1,
     strokeWeight: 1,
     strokeColor: '#FFFFFF',
