@@ -69,7 +69,7 @@ export const Navbar = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger
             onClick={() => {
-              router.push('/achievements');
+              router.push('/achievements?page=1');
             }}
           >
             媒合成果
