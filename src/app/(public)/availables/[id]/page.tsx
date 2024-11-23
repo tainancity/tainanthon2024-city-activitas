@@ -1,9 +1,12 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import supabase from '@/lib/supabaseClient';
 import { AvailablesCarousel } from '@/app/components/availables-carousel';
 import { Block } from '@/app/components/block';
 import PublicLayout from '@/components/layout';
+import AvailableLocationMap from '../components/available-location-map';
 
 export default function Page() {
   const { id } = useParams();
@@ -144,10 +147,35 @@ export default function Page() {
         </div>
       </Block>
       <Block>
-        <h2 className="text-2xl font-bold">{id}</h2>
-        <div className="flex items-center justify-between space-y-2">
-          {/* TODO */}
+        <h2 className="text-4xl font-bold mb-16">{asset?.target_name}</h2>
+        <div className="flex">
+          <div className="flex-col grow items-start flex space-y-2">
+            <div className="w-full mb-12">
+              <h3 className="mb-6 text-3xl">基本資料</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { label: '資產種類', value: asset?.type },
+                  { label: '行政區', value: asset?.test_districts?.name },
+                  { label: '地段', value: asset?.section },
+                  { label: '地址', value: asset?.address },
+                  { label: '管理機關', value: asset?.test_agencies?.name },
+                  { label: '機關層級', value: asset?.test_agencies?.note },
+                ].map((detail, index) => (
+                  <DetailBlock
+                    label={detail.label}
+                    value={detail.value}
+                    key={index}
+                  />
+                ))}
+              </div>
+            </div>
+            {getDetails()}
+          </div>
+          <div className="h-96 w-96 grow-0 shrink-0">
+            <AvailableLocationMap asset={asset} />
+          </div>
         </div>
+        {/*<pre>{JSON.stringify(asset, null, 2)}</pre>*/}
       </Block>
     </PublicLayout>
   );
