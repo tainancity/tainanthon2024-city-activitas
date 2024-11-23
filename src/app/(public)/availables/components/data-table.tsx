@@ -113,9 +113,9 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   onClick={() => {
-                    router.push(`/availables/${row.id}`);
+                    router.push(`/availables/${row.original.id}`);
                   }}
-                  key={row.id}
+                  key={row.original.id}
                   data-state={row.getIsSelected() && 'selected'}
                   className="cursor-pointer"
                 >
