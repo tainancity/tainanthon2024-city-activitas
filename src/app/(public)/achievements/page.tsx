@@ -1,6 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import supabase from '@/lib/supabaseClient';
 import PublicLayout from '@/components/layout';
 import CaseTrackingMap from '@/app/(public)/achievements/components/case-tracking-map';
 import {
@@ -9,15 +11,17 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import supabase from '@/lib/supabaseClient';
-import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 export default function Page() {
   const LIMIT = 12;
 
-  const [from, setFrom] = useState<number>(0);
-  const [to, setTo] = useState<number>(LIMIT - 1);
-  const [activatedAssets, setActivatedAssets] = useState([]);
+  const searchParams = useSearchParams();
+  const { page } = Object.fromEntries(
+    new URLSearchParams(searchParams).entries()
+  );
+
+  const [activatedAssets, setActivatedAssets] = useState<unknown[]>([]);
   const [activatedAssetsCount, setActivatedAssetsCount] = useState(0);
 
   useEffect(() => {
@@ -25,14 +29,14 @@ export default function Page() {
       const { data: activatedAssets, count } = await supabase
         .from('test_activated_assets')
         .select('*', { count: 'exact' })
-        .limit(LIMIT);
-      // .range(from, to);
+        .limit(LIMIT)
+        .range((+page - 1) * LIMIT, +page * LIMIT - 1);
 
-      setActivatedAssets(activatedAssets);
-      setActivatedAssetsCount(count);
+      setActivatedAssets(activatedAssets || []);
+      setActivatedAssetsCount(count || 0);
     };
     fetchActivatedAssets();
-  }, []);
+  }, [page]);
 
   const router = useRouter();
 
@@ -51,7 +55,8 @@ export default function Page() {
           }}
         >
           <div className="p-8">
-            <p className="pb-8">共 {activatedAssetsCount} 個已媒合案例</p>
+            <h2 className="text-2xl font-bold mb-8">媒合成果</h2>
+            <p className="mb-8">共 {activatedAssetsCount} 個已媒合案例</p>
             <Card className="flex cursor-pointer">
               <img
                 src="https://via.placeholder.com/320x180"
@@ -95,6 +100,26 @@ export default function Page() {
                 </CardHeader>
               </Card>
             ))}
+          </div>
+          <div className="m-8 flex gap-4 items-center justify-end">
+            <Button
+              disabled={+page === 1}
+              onClick={() => {
+                router.push(`/achievements?page=${+page - 1}`);
+              }}
+              variant="outline"
+            >
+              上一頁
+            </Button>
+            <Button
+              disabled={+page * LIMIT > activatedAssetsCount}
+              onClick={() => {
+                router.push(`/achievements?page=${+page + 1}`);
+              }}
+              variant="outline"
+            >
+              下一頁
+            </Button>
           </div>
         </div>
         <div
