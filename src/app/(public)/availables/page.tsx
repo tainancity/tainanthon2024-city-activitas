@@ -11,17 +11,10 @@ import columns from './components/columns';
 function IdleAssetsList() {
   const supabaseQuery = supabase.from('test_assets').select(
     `
-    id,
-    type,
-    agency_id,
+    *, 
     test_agencies(id,name,note),
-    district_id,
-    test_districts(id,name),
-    section,
-    address,
-    target_name,
-    status
-  `,
+    test_districts(id,name)
+    `,
     { count: 'exact' }
   );
 
