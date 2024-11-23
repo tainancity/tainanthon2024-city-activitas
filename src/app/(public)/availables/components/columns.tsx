@@ -1,7 +1,7 @@
 const columns = [
   {
     accessorKey: 'type',
-    header: '資產狀態',
+    header: '資產種類',
   },
   {
     accessorKey: 'test_agencies.name',
