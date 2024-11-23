@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import supabase from '@/lib/supabaseClient';
 import PublicLayout from '@/components/layout';
@@ -14,6 +14,14 @@ import {
 import { Button } from '@/components/ui/button';
 
 export default function Page() {
+  return (
+    <Suspense>
+      <Content />
+    </Suspense>
+  );
+}
+
+function Content() {
   const LIMIT = 12;
 
   const searchParams = useSearchParams();
