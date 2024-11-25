@@ -99,11 +99,9 @@ function Content() {
                   className="w-full object-cover rounded-t-md"
                 />
                 <CardHeader>
-                  <CardTitle className="leading-6">
-                    {asset.usage_plan}
-                  </CardTitle>
+                  <CardTitle className="leading-6">{asset.location}</CardTitle>
                   <CardDescription className="leading-6">
-                    {asset.location}
+                    {asset.usage_plan}
                   </CardDescription>
                 </CardHeader>
               </Card>
