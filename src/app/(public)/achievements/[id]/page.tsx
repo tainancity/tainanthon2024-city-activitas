@@ -77,19 +77,6 @@ export default function Page() {
                   currency: 'TWD',
                 }).format(activatedAsset?.benefit_value),
               },
-              // location text                   // 地點說明, asset的補充地點說明
-              // is_supplementary boolean        // 捕列, 是否為補列
-              // supplementary_year integer      // 補列年度, 例如：106、107、108
-              // usage_plan text                // 計畫用途, 例如：供鹽水區公所開闢停車場使用
-              // usage_type_id integer [ref: > usage_types.id]  // 計畫用途類別, 關聯到資產使用類型表
-              // land_value decimal             // 土地公告現值
-              // building_value decimal         // 房屋課稅現值
-              // benefit_value decimal          // 節流效益(元)
-              // is_counted boolean [not null]  // 列入計算: Y/M
-              // note text                     // 備註
-              // status varchar [not null]      // 例如：進行中、已終止 (進行中表示是活化狀態)
-              // start_date date [not null]     // 活化開始日期
-              // end_date date                  // 活化結束日期（若仍在進行中則為 null）
             ].map(({ label, value }, index) => (
               <DetailBlock label={label} value={value} key={index} />
             ))}
