@@ -77,7 +77,7 @@ function FeedbackForm() {
           )}
         />
         <Button type="submit" disabled={!form.formState.isValid}>
-          Submit
+          送出
         </Button>
       </form>
     </Form>
