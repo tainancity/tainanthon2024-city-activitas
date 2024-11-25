@@ -45,7 +45,7 @@ function IdleAssetsList() {
     };
     fetchIdleAssets();
   }, []);
-  return <DataTable columns={columns} data={idleAssets} />;
+  return <DataTable columns={columns} data={idleAssets} query={query} />;
 }
 
 export default function Page() {

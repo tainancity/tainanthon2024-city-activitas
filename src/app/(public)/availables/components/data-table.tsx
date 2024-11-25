@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -62,8 +63,36 @@ function DebouncedInput({
 export function DataTable<TData, TValue>({
   columns,
   data,
+  query: urlQuery,
 }: DataTableProps<TData, TValue>) {
-  const [globalFilter, setGlobalFilter] = useState('');
+  const [type, setType] = useState<string | null>(urlQuery?.type ?? null);
+
+  const [columnFilters, setColumnFilters] = useState([
+    { id: 'type', value: type },
+  ]);
+
+  useEffect(() => {
+    setColumnFilters((prevFilters) => {
+      if (!type || type === 'all') {
+        return prevFilters.filter((filter) => filter.id !== 'type');
+      }
+
+      const existingTypeFilter = prevFilters.find(
+        (filter) => filter.id === 'type'
+      );
+      if (existingTypeFilter) {
+        return prevFilters.map((filter) =>
+          filter.id === 'type'
+            ? { id: 'type', value: type }
+            : { id: filter.id, value: filter.value }
+        );
+      } else {
+        return [...prevFilters, { id: 'type', value: type }];
+      }
+    });
+  }, [type]);
+
+  const [globalFilter, setGlobalFilter] = useState<string>(urlQuery?.q || '');
 
   const table = useReactTable({
     data,
@@ -71,9 +100,11 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onGlobalFilterChange: setGlobalFilter,
+    onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     state: {
       globalFilter,
+      columnFilters,
     },
   });
 
@@ -81,7 +112,20 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="flex items-center py-4">
+      <div className="flex items-center gap-4 py-4">
+        <Tabs defaultValue="all" value={type || 'all'}>
+          <TabsList>
+            <TabsTrigger value="all" onClick={() => setType('all')}>
+              全部
+            </TabsTrigger>
+            <TabsTrigger value="建物" onClick={() => setType('建物')}>
+              建物
+            </TabsTrigger>
+            <TabsTrigger value="土地" onClick={() => setType('土地')}>
+              土地
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
         <DebouncedInput
           value={globalFilter ?? ''}
           onChange={(value) => setGlobalFilter(String(value))}
