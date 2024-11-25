@@ -42,6 +42,7 @@ function FeedbackForm() {
       title: '感謝您的回饋！',
       description: '您真是我們的靈感來源 🎉',
     });
+    form.reset();
   }
 
   return (
