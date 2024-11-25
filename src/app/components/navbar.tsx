@@ -69,6 +69,8 @@ export const Navbar = () => {
     defaultActivatedAssets
   );
 
+  const [idleAssets, setIdleAssets] = useState<unknown[]>([]);
+
   useEffect(() => {
     const fetchActivatedAssets = async () => {
       const { data: activatedAssets } = await supabase
@@ -79,6 +81,17 @@ export const Navbar = () => {
       setActivatedAssets(activatedAssets || defaultActivatedAssets);
     };
     fetchActivatedAssets();
+
+    const fetchIdleAssets = async () => {
+      const { data: idleAssets } = await supabase
+        .from('test_assets')
+        .select('*')
+        .eq('type', '建物')
+        .limit(6);
+
+      setIdleAssets(idleAssets || []);
+    };
+    fetchIdleAssets();
   }, []);
 
   return (
@@ -139,13 +152,13 @@ export const Navbar = () => {
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
+              {idleAssets.map((asset) => (
                 <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
+                  key={asset.id}
+                  title={asset.target_name}
+                  href={`/availables/${asset.id}`}
                 >
-                  {component.description}
+                  {asset.address}
                 </ListItem>
               ))}
             </ul>
