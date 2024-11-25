@@ -1,6 +1,12 @@
 'use client';
 
-import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
+import {
+  forwardRef,
+  ElementRef,
+  ComponentPropsWithoutRef,
+  useState,
+  useEffect,
+} from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -14,6 +20,7 @@ import {
 } from '@/components/ui/navigation-menu';
 import { Icons } from '@/components/ui/icons';
 import { cn } from '@/lib/utils';
+import supabase from '@/lib/supabaseClient';
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -56,6 +63,24 @@ const components: { title: string; href: string; description: string }[] = [
 export const Navbar = () => {
   const router = useRouter();
 
+  const COUNT = 4;
+  const defaultActivatedAssets = Array(COUNT).fill({});
+  const [activatedAssets, setActivatedAssets] = useState<unknown[]>(
+    defaultActivatedAssets
+  );
+
+  useEffect(() => {
+    const fetchActivatedAssets = async () => {
+      const { data: activatedAssets } = await supabase
+        .from('test_activated_assets')
+        .select('*')
+        .limit(COUNT);
+
+      setActivatedAssets(activatedAssets || defaultActivatedAssets);
+    };
+    fetchActivatedAssets();
+  }, []);
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -80,28 +105,27 @@ export const Navbar = () => {
                 <NavigationMenuLink asChild>
                   <a
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
+                    href={`/achievements/${activatedAssets[0].id}`}
                   >
                     <Icons.logo className="h-6 w-6" />
                     <div className="mb-2 mt-4 text-lg font-medium">
-                      shadcn/ui
+                      {activatedAssets[0].location}
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
-                      Beautifully designed components built with Radix UI and
-                      Tailwind CSS.
+                      {activatedAssets[0].usage_plan}
                     </p>
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="Introduction">
-                Re-usable components built using Radix UI and Tailwind CSS.
-              </ListItem>
-              <ListItem href="/docs/installation" title="Installation">
-                How to install dependencies and structure your app.
-              </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Typography">
-                Styles for headings, paragraphs, lists...etc
-              </ListItem>
+              {activatedAssets.slice(1).map((asset) => (
+                <ListItem
+                  href={`/achievements/${asset.id}`}
+                  title={asset.location}
+                  key={asset.id}
+                >
+                  {asset.usage_plan}
+                </ListItem>
+              ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>

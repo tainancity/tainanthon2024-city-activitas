@@ -22,7 +22,7 @@ export default function Page() {
 }
 
 function Content() {
-  const LIMIT = 12;
+  const LIMIT = 13;
 
   const searchParams = useSearchParams();
   const { page } = Object.fromEntries(
@@ -65,7 +65,12 @@ function Content() {
           <div className="p-8">
             <h2 className="text-2xl font-bold mb-8">媒合成果</h2>
             <p className="mb-8">共 {activatedAssetsCount} 個已媒合案例</p>
-            <Card className="flex cursor-pointer">
+            <Card
+              onClick={() => {
+                router.push(`/achievements/${activatedAssets[0]?.id}`);
+              }}
+              className="flex cursor-pointer"
+            >
               <img
                 src="https://via.placeholder.com/320x180"
                 alt="Header"
@@ -73,19 +78,18 @@ function Content() {
               />
               <div className="flex-1">
                 <CardHeader>
-                  <CardTitle className="leading-6">title</CardTitle>
-                  <CardDescription
-                    className="leading-6
-                  "
-                  >
-                    description
+                  <CardTitle className="leading-6">
+                    {activatedAssets[0]?.location ?? ''}
+                  </CardTitle>
+                  <CardDescription className="leading-6">
+                    {activatedAssets[0]?.usage_plan ?? ''}
                   </CardDescription>
                 </CardHeader>
               </div>
             </Card>
           </div>
           <div className="p-8 grid grid-cols-3 gap-4">
-            {(activatedAssets ?? []).map((asset, index) => (
+            {(activatedAssets ?? []).slice(1).map((asset, index) => (
               <Card
                 onClick={() => {
                   router.push(`/achievements/${asset.id}`);
