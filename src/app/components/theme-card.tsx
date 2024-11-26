@@ -15,7 +15,7 @@ export interface Theme {
 
 export const ThemeCard = ({ theme }: { theme: Theme }) => (
   <Card className="flex-grow cursor-pointer">
-    <Link href="/">
+    <Link href="/availables">
       <CardHeader>
         <div className="mb-2 flex gap-1">
           {theme.tags.map((tag, index) => (
