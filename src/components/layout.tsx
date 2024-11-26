@@ -33,7 +33,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             </div>
           </div>
         </div>
-        <div className="flex-grow">{children}</div>
+        <div className="flex-grow mb-36">{children}</div>
       </main>
       <Footer />
     </div>
