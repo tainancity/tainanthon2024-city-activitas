@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Autoplay from 'embla-carousel-autoplay';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -21,11 +22,22 @@ export const AvailablesCarousel = () => (
           <div className="p-1">
             <Card>
               <CardContent className="flex aspect-video items-center justify-center p-6">
-                <img
-                  src="https://via.placeholder.com/960x540"
-                  alt="Header"
-                  className="w-full object-cover rounded-t-md"
-                />
+                <div
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <Image
+                    src={`/images/${index + 1}.jpg`}
+                    width={960}
+                    height={540}
+                    layout="intrintsic"
+                    alt="Header"
+                    className="w-full object-cover rounded-t-md"
+                  />
+                </div>
               </CardContent>
             </Card>
           </div>
