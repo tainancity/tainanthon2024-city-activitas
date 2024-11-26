@@ -5,7 +5,7 @@ export const Block = ({
 }: Readonly<{
   children: ReactNode;
 }>) => (
-  <div className="flex-1 space-y-4 p-8 pt-6 mx-auto max-w-screen-xl min-w-[1280px] mb-36">
+  <div className="flex-1 space-y-4 p-8 pt-6 mx-auto max-w-screen-xl min-w-[1280px]">
     {children}
   </div>
 );
