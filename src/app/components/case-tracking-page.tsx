@@ -1,10 +1,6 @@
 "use client"
-import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
-const supabaseUrl = 'https://xnlamjezlrbklvedlmwo.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhubGFtamV6bHJia2x2ZWRsbXdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk5MTAwMzQsImV4cCI6MjA0NTQ4NjAzNH0.vV704jxQRAbHQ5PCZCcfYKnaM1NuTp5LJSB9nt329z8';
-export const supabase = createClient(supabaseUrl, supabaseKey);
+import supabase from '@/lib/supabaseClient';
 import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -16,7 +12,6 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { MapPin, FileText, FileSpreadsheet, Mail, AlertTriangle, Plus, Pencil, Trash } from "lucide-react"
-import Link from 'next/link'
 
 const usageOptions = [
   "育成與創業空間",
@@ -66,199 +61,79 @@ interface Case {
   }
 
 
-
-export const AssetCases = () => {
-    const [cases, setCases] = useState<Case[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
-
-// const useEffect(() => {
-    // Fetch data from Supabase
-    const fetchData = async () => {
-    const { data, error } = await supabase
-        .from('asset_cases_view')
-        .select('*');
-
-    if (error) {
-        setError(error.message);
-    } else {
-        setCases(data);
-    }
-    setLoading(false);
-    };
-
-    fetchData();
-// }, []);
-
-if (loading) return <div>Loading...</div>;
-if (error) return <div>Error: {error}</div>;
-
-return (
-    <div>
-    <h1>Asset Cases</h1>
-    {cases.map((caseItem) => (
-        <div key={caseItem.案件ID}>
-        <h2>{caseItem.案件名稱}</h2>
-        <p>{caseItem.地址}</p>
-        <p>{caseItem.案件狀態}</p>
-        {/* Add more case details here */}
-        </div>
-    ))}
-    </div>
-);
-};
-
 // export default AssetCases;
 export const CaseTrackingPage = () => {
-    // const [cases, setCases] = useState<Case[]>([
-    //     {
-    //       案件ID: 1,
-    //       案件名稱: "玉井區公共休憩空間",
-    //       資產類型: "不動產",
-    //       行政區: "臺南市玉井區",
-    //       標的名稱: "玉井游泳池原室內空間",
-    //       地址: "臺南市玉井區中山路",
-    //       管理機關: "工務局、體育局、玉井區公所",
-    //       活化目標說明: "提供公共休憩空間，並規劃體健設施作為地方活動空間。",
-    //       活化目標類型: "公共休憩空間",
-    //       案件狀態: "核准經費中",
-    //       最新會議結論: "1. 玉井游泳池原室內空間：\n(1)後續發包修繕請公所評估放置體健設施作為地方活動空間之可行性，並請體育局協助相關經費。\n(2)耐震評估及補強相關經費請工務局協助。\n2. 玉井體育公園：請玉井區公所注意後續維護管理，避免雜草叢生，經費部分請體育局協助，並儘速辦理。",
-    //       任務總數: 3,
-    //       已完成任務數: 0,
-    //       建立時間: "2023-01-01",
-    //       更新時間: "2023-10-01",
-    //       meetings: [
-    //         {
-    //           id: 1,
-    //           date: "2023-10-01",
-    //           content:
-    //             "1. 玉井游泳池原室內空間：\n(1)後續發包修繕請公所評估放置體健設施作為地方活動空間之可行性，並請體育局協助相關經費。\n(2)耐震評估及補強相關經費請工務局協助。\n2. 玉井體育公園：請玉井區公所注意後續維護管理，避免雜草叢生，經費部分請體育局協助，並儘速辦理。",
-    //         },
-    //       ],
-    //       tasks: [
-    //         {
-    //           id: 1,
-    //           demanding_agencies: "工務局",
-    //           content: "協助耐震評估及補強相關經費",
-    //           details: "",
-    //           status: "進行中",
-    //           start_date: "2024-07-31",
-    //           end_date: "2024-07-27",
-    //           estimated_completion_date: "2024-07-27",
-    //         },
-    //         {
-    //           id: 2,
-    //           demanding_agencies: "體育局",
-    //           content: "協助發包修繕相關經費",
-    //           details: "",
-    //           status: "待處理",
-    //           start_date: "2024-07-02",
-    //           end_date: "2024-08-31",
-    //           estimated_completion_date: "2024-09-20",
-    //         },
-    //         {
-    //           id: 3,
-    //           demanding_agencies: "玉井區公所",
-    //           content: "請公所評估放置體健設施作為地方活動空間之可行性",
-    //           details: "",
-    //           status: "待處理",
-    //           start_date: "2024-09-03",
-    //           end_date: "2024-09-28",
-    //           estimated_completion_date: "2024-10-18",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       案件ID: 2,
-    //       案件名稱: "安平區商業進駐",
-    //       資產類型: "不動產",
-    //       行政區: "臺南市安平區",
-    //       標的名稱: "安平區安北路商業區",
-    //       地址: "臺南市安平區安北路",
-    //       管理機關: "觀光旅遊局",
-    //       活化目標說明: "招商並規劃商業進駐，提升地區經濟活力。",
-    //       活化目標類型: "商業進駐",
-    //       案件狀態: "完成招商",
-    //       最新會議結論: "完成招商並處理後續相關事宜，等待訴訟結束後進行交接。",
-    //       任務總數: 1,
-    //       已完成任務數: 0,
-    //       建立時間: "2024-01-01",
-    //       更新時間: "2024-10-02",
-    //       meetings: [],
-    //       tasks: [
-    //         {
-    //           id: 1,
-    //           demanding_agencies: "觀光旅遊局",
-    //           content: "於前案訴訟期間先辦理後續招商，俟訴訟完後即可點交，並研議招商適宜之年限，俾利廠商做資本性投入",
-    //           details: "",
-    //           status: "待處理",
-    //           start_date: "2024-10-02",
-    //           end_date: "2024-10-10",
-    //           estimated_completion_date: "2024-10-26",
-    //         },
-    //       ],
-    //     },
-    //   ]);
     const [cases, setCases] = useState<Case[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-// const useEffect(() => {
     // Fetch data from Supabase
     const fetchData = async () => {
         try {
-            // Fetch cases from the `asset_cases_view` table
-            const { data: caseData, error: caseError } = await supabase
-              .from('asset_cases_view')
-              .select('*');
+          // Fetch cases from the `asset_cases_view` table
+          const { data: caseData, error: caseError } = await supabase
+            .from('asset_cases_view')
+            .select('*');
 
-            if (caseError) throw caseError;
+          if (caseError) throw caseError;
 
-            // Fetch meetings from the `case_meeting_conclusions` table
-            const { data: meetingData, error: meetingError } = await supabase
-              .from('case_meeting_conclusions')
-              .select('case_id, meeting_date, content');
+          // Fetch meetings from the `case_meeting_conclusions` table
+          const { data: meetingData, error: meetingError } = await supabase
+            .from('case_meeting_conclusions')
+            .select('case_id, meeting_date, content');
 
-            if (meetingError) throw meetingError;
-            // Fetch tasks from the `case_tasks` table
-            const { data: taskData, error: taskError } = await supabase
+          if (meetingError) throw meetingError;
+
+          // Fetch tasks from the `case_tasks` table
+          const { data: taskData, error: taskError } = await supabase
             .from('case_tasks')
             .select('case_id, id, agency_id, task_content, status, start_date, complete_date, due_date, note');
-            if (taskError) throw taskError;
 
-            // Merge meetings into cases
-            const mergedCases = caseData.map((caseItem) => {
-              return {
-                ...caseItem,
-                meetings: meetingData
-                  .filter((meeting) => meeting.case_id === caseItem.案件ID) // Match meetings to the correct case by `case_id`
-                  .map((meeting) => ({
-                    id: meeting.case_id, // Adjust fields based on your Meeting interface
-                    date: meeting.meeting_date,
-                    content: meeting.content,
-                  })),
-                tasks: taskData
-                  .filter((task) => task.case_id === caseItem.案件ID) // Match tasks to the correct case by `case_id`
-                  .map((task) => ({
-                    id: task.id,
-                    demanding_agencies: task.agency_id.toString(), // Assuming `agency_id` maps to an agency name elsewhere
-                    content: task.task_content,
-                    details: task.note || '', // Optional field
-                    status: task.status,
-                    start_date: task.start_date,
-                    end_date: task.complete_date,
-                    estimated_completion_date: task.due_date,
-                  })),
-              };
-            });
+          if (taskError) throw taskError;
 
-            setCases(mergedCases);
-          } catch (err: any) {
-            setError(err.message);
-          } finally {
-            setLoading(false);
-          }
-    };
+          // Fetch agency names from the `agencies` table
+          const { data: agencyData, error: agencyError } = await supabase
+            .from('agencies')
+            .select('id, name');
+
+          if (agencyError) throw agencyError;
+
+          // Create a lookup map for agency names by ID
+          const agencyMap = agencyData.reduce((map, agency) => {
+            map[agency.id] = agency.name;
+            return map;
+          }, {} as Record<number, string>);
+
+          // Merge meetings and tasks into cases
+          const mergedCases = caseData.map((caseItem) => ({
+            ...caseItem,
+            meetings: meetingData
+              .filter((meeting) => meeting.case_id === caseItem.案件ID) // Match meetings by `case_id`
+              .map((meeting) => ({
+                id: meeting.case_id,
+                date: meeting.meeting_date,
+                content: meeting.content,
+              })),
+            tasks: taskData
+              .filter((task) => task.case_id === caseItem.案件ID) // Match tasks by `case_id`
+              .map((task) => ({
+                id: task.id,
+                demanding_agencies: agencyMap[task.agency_id] || 'Unknown Agency', // Map agency name
+                content: task.task_content,
+                details: task.note || '', // Optional field
+                status: task.status,
+                start_date: task.start_date,
+                end_date: task.complete_date,
+                estimated_completion_date: task.due_date,
+              })),
+          }));
+          setCases(mergedCases);
+        } catch (err: any) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      };
 
     fetchData();
   const [selectedCase, setSelectedCase] = useState<Case | null>(null)
@@ -394,7 +269,7 @@ export const CaseTrackingPage = () => {
                             <TabsContent value="info">
                               <div className="grid grid-cols-2 gap-4 mb-4">
                                 {Object.entries(selectedCase).map(([key, value]) => {
-                                  if (key !== 'id' && key !== 'meetings' && key !== 'tasks' && key !== 'lat' && key !== 'lng' && key !== '任務總數' && key !== '已完成任務數') {
+                                  if (key !== 'id' && key !== '案件ID' && key !== '' && key !== 'meetings' && key !== 'tasks' && key !== 'lat' && key !== 'lng' && key !== '任務總數' && key !== '已完成任務數' && key !== '最新會議結論') {
                                     return (
                                       <div key={key} className="space-y-2">
                                         <Label htmlFor={key}>
@@ -588,9 +463,6 @@ export const CaseTrackingPage = () => {
                         </DialogFooter>
                       </DialogContent>
                     </Dialog>
-                    {/* <Button variant="outline" onClick={() => handleNotify(c.executiveAgency)}>
-                      <Mail className="mr-2 h-4 w-4" /> 通知
-                    </Button> */}
                   </TableCell>
                 </TableRow>
               ))}
