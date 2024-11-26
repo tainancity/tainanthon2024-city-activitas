@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/table';
 import { useRouter } from 'next/navigation';
 
-interface News {
+export interface News {
   date: string;
   title: string;
 }
@@ -18,15 +18,15 @@ interface News {
 const newsList: News[] = [
   {
     date: '2024.11.09',
-    title: '這是最新消息的標題',
+    title: '臺南市閒置市有不動產活化新進展：創新利用助推城市永續發展',
   },
   {
     date: '2024.11.09',
-    title: '這是最新消息的標題',
+    title: '臺南閒置市有不動產再出發：活化策略與未來藍圖',
   },
   {
     date: '2024.11.09',
-    title: '這是最新消息的標題',
+    title: '閒置變黃金：臺南市如何創造市有不動產新價值',
   },
 ];
 
