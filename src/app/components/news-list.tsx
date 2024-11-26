@@ -46,7 +46,7 @@ export const NewsList = () => {
           <TableRow
             key={index}
             onClick={() => {
-              router.push('/');
+              router.push('/news/1');
             }}
             className="cursor-pointer"
           >
