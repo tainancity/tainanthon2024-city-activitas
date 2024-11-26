@@ -72,7 +72,7 @@ function Content() {
               className="flex cursor-pointer"
             >
               <img
-                src="https://via.placeholder.com/320x180"
+                src="https://picsum.photos/320/180?grayscale"
                 alt="Header"
                 className="w-1/3 object-cover rounded-t-md"
               />
@@ -98,7 +98,7 @@ function Content() {
                 className="relative cursor-pointer"
               >
                 <img
-                  src="https://via.placeholder.com/320x180"
+                  src="https://picsum.photos/320/180?grayscale"
                   alt="Header"
                   className="w-full object-cover rounded-t-md"
                 />
