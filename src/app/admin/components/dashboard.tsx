@@ -147,7 +147,7 @@ export function Dashboard() {
               icon={<FileText className="h-6 w-6" />}
               count={requestCount}
               description="申請使用閒置資產"
-              onClick={() => router.push('/request-asset')}
+              onClick={() => router.push('/admin/request-asset')}
             />
           </div>
         </div>

@@ -6,6 +6,7 @@ import {
   Briefcase,
   CheckSquare,
   Building,
+  FileText,
   ChevronUp,
   User2,
 } from 'lucide-react';
@@ -54,6 +55,11 @@ const items = [
     title: '提報資產',
     url: '/admin/report-asset',
     icon: Building,
+  },
+  {
+    title: '申請資產需求',
+    url: '/admin/request-asset',
+    icon: FileText,
   },
 ];
 
