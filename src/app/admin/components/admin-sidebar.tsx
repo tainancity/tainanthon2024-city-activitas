@@ -4,6 +4,7 @@ import {
   LayoutDashboard,
   Home,
   Briefcase,
+  CheckSquare,
   ChevronUp,
   User2,
 } from 'lucide-react';
@@ -42,6 +43,11 @@ const items = [
     title: '進行中案件',
     url: '/admin/idle-asset-detail',
     icon: Briefcase,
+  },
+  {
+    title: '已活化資產',
+    url: '/admin/activated-assets-detail',
+    icon: CheckSquare,
   },
 ];
 

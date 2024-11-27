@@ -130,7 +130,7 @@ export function Dashboard() {
               icon={<CheckSquare className="h-6 w-6" />}
               count={assetCounts.activated}
               description="已活化資產總數"
-              onClick={() => router.push('/activated-assets-detail')}
+              onClick={() => router.push('/admin/activated-assets-detail')}
             />
           </div>
 
