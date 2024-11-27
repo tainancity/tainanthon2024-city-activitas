@@ -3,7 +3,7 @@
 import {
   LayoutDashboard,
   Home,
-  ChartSpline,
+  Briefcase,
   ChevronUp,
   User2,
 } from 'lucide-react';
@@ -37,6 +37,11 @@ const items = [
     title: '閒置資產',
     url: '/admin/idle-asset-detail',
     icon: Home,
+  },
+  {
+    title: '進行中案件',
+    url: '/admin/idle-asset-detail',
+    icon: Briefcase,
   },
 ];
 

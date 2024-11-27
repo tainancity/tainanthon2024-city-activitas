@@ -123,7 +123,7 @@ export function Dashboard() {
               icon={<Briefcase className="h-6 w-6" />}
               count={assetCounts.inProgress}
               description="進行中案件總數"
-              onClick={() => router.push('/in-progress-cases-detail')}
+              onClick={() => router.push('/admin/in-progress-cases-detail')}
             />
             <AssetCard
               title="已活化資產"
