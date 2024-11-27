@@ -7,6 +7,7 @@ import {
   CheckSquare,
   Building,
   FileText,
+  Atom,
   ChevronUp,
   User2,
 } from 'lucide-react';
@@ -60,6 +61,16 @@ const items = [
     title: '申請資產需求',
     url: '/admin/request-asset',
     icon: FileText,
+  },
+  {
+    title: 'CASES',
+    url: '/admin/cases',
+    icon: Atom,
+  },
+  {
+    title: 'TASKS',
+    url: '/admin/tasks',
+    icon: Atom,
   },
 ];
 
