@@ -1,3 +1,5 @@
-export default function Admin() {
-  return <div />;
+import { Dashboard } from '@/app/admin/components/dashboard';
+
+export default function DashboardPage() {
+  return <Dashboard />;
 }
