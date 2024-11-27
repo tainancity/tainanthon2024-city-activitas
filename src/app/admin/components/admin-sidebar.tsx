@@ -45,10 +45,21 @@ export function AdminSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader />
+      <SidebarHeader>
+        <span className="text-xl font-black">CityActivitas</span>
+        <span className="text-sm font-bold">
+          臺南市政府財政稅務局
+          <br />
+          閒置資產管理後台
+        </span>
+      </SidebarHeader>
       <SidebarContent>
+        {/*<SidebarGroupLabel>*/}
+        {/*  CityActivitas*/}
+        {/*  <br />*/}
+        {/*</SidebarGroupLabel>*/}
+        {/*<SidebarGroupLabel>台南市政府財稅局閒置資產管理後台</SidebarGroupLabel>*/}
         <SidebarGroup>
-          <SidebarGroupLabel>CityActivitas</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
