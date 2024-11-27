@@ -43,7 +43,7 @@ const items = [
   },
   {
     title: '進行中案件',
-    url: '/admin/idle-asset-detail',
+    url: '/admin/in-progress-cases-detail',
     icon: Briefcase,
   },
   {
