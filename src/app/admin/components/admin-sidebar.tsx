@@ -5,6 +5,7 @@ import {
   Home,
   Briefcase,
   CheckSquare,
+  Building,
   ChevronUp,
   User2,
 } from 'lucide-react';
@@ -48,6 +49,11 @@ const items = [
     title: '已活化資產',
     url: '/admin/activated-assets-detail',
     icon: CheckSquare,
+  },
+  {
+    title: '提報資產',
+    url: '/admin/report-asset',
+    icon: Building,
   },
 ];
 

@@ -140,7 +140,7 @@ export function Dashboard() {
               icon={<Building className="h-6 w-6" />}
               count={proposalCount}
               description="提報閒置資產"
-              onClick={() => router.push('/report-asset')}
+              onClick={() => router.push('/admin/report-asset')}
             />
             <AssetCard
               title="申請資產需求"
