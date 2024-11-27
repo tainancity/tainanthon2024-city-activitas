@@ -1,6 +1,12 @@
 'use client';
 
-import { Home, ChartSpline, ChevronUp, User2 } from 'lucide-react';
+import {
+  LayoutDashboard,
+  Home,
+  ChartSpline,
+  ChevronUp,
+  User2,
+} from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import {
   Sidebar,
@@ -23,14 +29,14 @@ import {
 
 const items = [
   {
-    title: 'Home',
+    title: '首頁',
     url: '/admin',
-    icon: Home,
+    icon: LayoutDashboard,
   },
   {
-    title: 'Graph',
-    url: '/admin/generator',
-    icon: ChartSpline,
+    title: '閒置資產',
+    url: '/admin/idle-asset-detail',
+    icon: Home,
   },
 ];
 

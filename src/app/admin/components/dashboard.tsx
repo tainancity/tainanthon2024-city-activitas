@@ -116,7 +116,7 @@ export function Dashboard() {
               icon={<Home className="h-6 w-6" />}
               count={assetCounts.idle}
               description="閒置資產總數"
-              onClick={() => router.push('/idle-asset-detail')}
+              onClick={() => router.push('/admin/idle-asset-detail')}
             />
             <AssetCard
               title="進行中案件"
