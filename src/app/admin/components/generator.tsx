@@ -166,7 +166,7 @@ export function Generator() {
     fetchData();
   }, [router]);
 
-  if (isLoading || router.isFallback) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
