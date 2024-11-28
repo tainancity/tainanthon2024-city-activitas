@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, MapPin } from 'lucide-react';
+import { ArrowLeft, MapPin, Upload } from 'lucide-react';
 import { DistrictSelectorDrawerComponent } from '@/app/admin/components/district-selector-drawer';
 import { AgenciesDrawerComponent } from '@/app/admin/components/agencies-drawer';
 import {
@@ -22,6 +22,7 @@ import {
 import { LandRelationsTab } from '@/app/admin/components/land-relations-tab';
 import { LocationDrawerComponent } from '@/app/admin/components/location-drawer';
 import { useToast } from '@/hooks/use-toast';
+import { AssetImagesTab } from '@/app/admin/components/asset-images-tab';
 
 interface Asset {
   id: string;
@@ -324,7 +325,7 @@ export function OneIdleAssetDetail({
 
       const updates = [];
 
-      // 資產基本資料欄位映射
+      // 資產基本資料欄位映��
       const assetFieldsMap: { [key: string]: string } = {
         assetType: 'type',
         agency_id: 'agency_id',
@@ -626,8 +627,9 @@ export function OneIdleAssetDetail({
       </div>
 
       <Tabs defaultValue="asset-details" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-1/4 grid-cols-3 border shadow">
           <TabsTrigger value="asset-details">資產細項</TabsTrigger>
+          <TabsTrigger value="image-list">圖片列表</TabsTrigger>
           {hasLandRelations && (
             <TabsTrigger value="land-relations">建物土地關聯細項</TabsTrigger>
           )}
@@ -829,6 +831,9 @@ export function OneIdleAssetDetail({
               </CardContent>
             </Card>
           </div>
+        </TabsContent>
+        <TabsContent value="image-list">
+          <AssetImagesTab assetId={formData.assetId} />
         </TabsContent>
         <TabsContent value="land-relations">
           <LandRelationsTab landRelationData={landRelationData} />
