@@ -72,6 +72,11 @@ const items = [
     url: '/admin/tasks',
     icon: Atom,
   },
+  {
+    title: '圖表一覽',
+    url: '/admin/generator',
+    icon: Atom,
+  },
 ];
 
 export function AdminSidebar() {
