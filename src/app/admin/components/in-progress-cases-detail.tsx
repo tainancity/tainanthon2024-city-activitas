@@ -187,7 +187,7 @@ export function InProgressCasesDetailComponent() {
         <div className="py-6">
           <h1 className="text-2xl font-bold mb-4">進行中案件詳情</h1>
           <Tabs defaultValue="list" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-1/4 grid-cols-2 border shadow">
               <TabsTrigger value="list">案件列表</TabsTrigger>
               <TabsTrigger value="add">新增案件</TabsTrigger>
             </TabsList>
@@ -199,7 +199,7 @@ export function InProgressCasesDetailComponent() {
                     placeholder="搜尋案件..."
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
-                    className="max-w-sm"
+                    className="max-w-sm bg-white"
                   />
                   <Button onClick={handleExportExcel}>匯出Excel</Button>
                 </div>

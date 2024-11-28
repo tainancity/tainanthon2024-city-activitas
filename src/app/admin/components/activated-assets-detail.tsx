@@ -173,7 +173,7 @@ export function ActivatedAssetsDetailComponent() {
         <div className="py-6">
           <h1 className="text-2xl font-bold mb-4">已活化資產詳情</h1>
           <Tabs defaultValue="list" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-1/4 grid-cols-2 border shadow">
               <TabsTrigger value="list">已活化資產列表</TabsTrigger>
               <TabsTrigger value="add">新增資產</TabsTrigger>
             </TabsList>

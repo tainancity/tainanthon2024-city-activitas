@@ -239,7 +239,7 @@ export function IdleAssetsDetailComponent() {
             <Button onClick={handleExportExcel}>匯出Excel</Button>
           </div>
           <Tabs defaultValue="list" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-1/4 grid-cols-2 border shadow">
               <TabsTrigger value="list">閒置資產列表</TabsTrigger>
               <TabsTrigger value="add">新增資產</TabsTrigger>
             </TabsList>

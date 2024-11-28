@@ -123,7 +123,7 @@ export function OneInProgressCaseDetail({
       </div>
 
       <Tabs defaultValue="case-details" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-1/4 grid-cols-2 border shadow">
           <TabsTrigger value="case-details">案件詳情</TabsTrigger>
           <TabsTrigger value="task-list">案件任務列表</TabsTrigger>
         </TabsList>
