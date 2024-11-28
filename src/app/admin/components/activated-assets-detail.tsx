@@ -246,7 +246,10 @@ export function ActivatedAssetsDetailComponent() {
                 </div>
               </div>
             </TabsContent>
-            <TabsContent value="add">
+            <TabsContent
+              value="add"
+              className="rounded-xl border shadow p-8 mt-2 bg-white"
+            >
               <form className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>

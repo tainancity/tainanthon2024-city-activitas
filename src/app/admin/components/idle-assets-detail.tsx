@@ -215,7 +215,7 @@ export function IdleAssetsDetailComponent() {
 
   if (selectedAsset) {
     return (
-      <div className="min-h-screen bg-gray-200">
+      <div className="min-h-screen">
         {/*<Header />*/}
         <div className="container mx-auto py-12">
           <OneIdleAssetDetail
@@ -230,7 +230,7 @@ export function IdleAssetsDetailComponent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-200">
+    <div className="min-h-screen">
       {/*<Header />*/}
       <div className="container mx-auto py-12">
         <div className="py-2">
@@ -266,7 +266,10 @@ export function IdleAssetsDetailComponent() {
                 />
               </div>
             </TabsContent>
-            <TabsContent value="add">
+            <TabsContent
+              value="add"
+              className="rounded-xl border shadow p-8 mt-2 bg-white"
+            >
               <form className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>

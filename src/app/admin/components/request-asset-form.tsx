@@ -138,7 +138,7 @@ export function RequestAssetForm({ onSubmitSuccess }: RequestAssetFormProps) {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <div className="rounded-xl border shadow p-8 mt-2 bg-white">
       <div className="mb-6">
         <h2 className="text-lg font-semibold">資產需求表單</h2>
         <p className="text-sm text-gray-500">請填寫以下需求資訊</p>
