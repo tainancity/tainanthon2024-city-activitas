@@ -66,10 +66,10 @@ export function ProposalAssetTable({
   districtMap,
 }: ProposalAssetTableProps) {
   return (
-    <div className="relative rounded-md border mt-2">
+    <div className="relative rounded-xl border shadow p-4 mt-2 bg-white">
       <div className="overflow-y-scroll max-h-[70vh]">
         <Table>
-          <TableHeader className="sticky top-0 bg-gray-200 z-10">
+          <TableHeader className="sticky top-0 bg-gray-100 z-10">
             <TableRow>
               {[
                 ['提報編號', 'id'],
