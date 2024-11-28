@@ -234,7 +234,7 @@ body {
   flex-wrap: wrap;
   gap: .25rem;
 }
-button {
+.tiptap button {
   background: lightgray;
   border-radius: .5rem;
   border: none;
