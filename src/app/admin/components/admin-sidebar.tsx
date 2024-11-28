@@ -100,7 +100,7 @@ const items = [
       },
       {
         title: '媒合成果編輯器',
-        url: '/admin',
+        url: '/admin/achievement-editor',
         icon: PencilRuler,
       },
     ],
@@ -110,7 +110,7 @@ const items = [
     children: [
       {
         title: '最新消息編輯器',
-        url: '/admin',
+        url: '/admin/news-editor',
         icon: PencilRuler,
       },
     ],
