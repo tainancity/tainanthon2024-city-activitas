@@ -158,20 +158,17 @@ export function Dashboard() {
 
 function AssetCard({ title, icon, count, description, onClick }) {
   return (
-    <Card>
+    <Card onClick={onClick} className="cursor-pointer p-2">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        <CardTitle className="text-md font-bold">{title}</CardTitle>
         {icon}
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">{count}</div>
-        <p className="text-xs text-muted-foreground">{description}</p>
-        <p className="text-xs text-muted-foreground mt-1">
+        <div className="text-8xl font-extralight mb-4">{count}</div>
+        <p className="text-sm text-muted-foreground">{description}</p>
+        <p className="text-sm text-muted-foreground mt-1">
           總計 {count} 筆資料
         </p>
-        <Button className="mt-4 w-full" variant="outline" onClick={onClick}>
-          查看詳情
-        </Button>
       </CardContent>
     </Card>
   );
