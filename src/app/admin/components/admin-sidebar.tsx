@@ -93,11 +93,6 @@ export function AdminSidebar() {
         </span>
       </SidebarHeader>
       <SidebarContent>
-        {/*<SidebarGroupLabel>*/}
-        {/*  CityActivitas*/}
-        {/*  <br />*/}
-        {/*</SidebarGroupLabel>*/}
-        {/*<SidebarGroupLabel>台南市政府財稅局閒置資產管理後台</SidebarGroupLabel>*/}
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
