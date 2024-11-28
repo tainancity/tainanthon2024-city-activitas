@@ -8,6 +8,9 @@ import {
   Building,
   FileText,
   Atom,
+  CircleDot,
+  ChartSpline,
+  PencilRuler,
   ChevronUp,
   User2,
 } from 'lucide-react';
@@ -33,49 +36,84 @@ import {
 
 const items = [
   {
-    title: '首頁',
-    url: '/admin',
-    icon: LayoutDashboard,
+    label: '',
+    children: [
+      {
+        title: '首頁',
+        url: '/admin',
+        icon: LayoutDashboard,
+      },
+    ],
   },
   {
-    title: '閒置資產',
-    url: '/admin/idle-asset-detail',
-    icon: Home,
+    label: '資產管理',
+    children: [
+      {
+        title: '閒置資產',
+        url: '/admin/idle-asset-detail',
+        icon: Home,
+      },
+      {
+        title: '已活化資產',
+        url: '/admin/activated-assets-detail',
+        icon: CheckSquare,
+      },
+      {
+        title: '機關年度提報',
+        url: '/admin/report-asset',
+        icon: Building,
+      },
+    ],
   },
   {
-    title: '進行中案件',
-    url: '/admin/in-progress-cases-detail',
-    icon: Briefcase,
+    label: '案件管理',
+    children: [
+      {
+        title: '進行中案件',
+        url: '/admin/in-progress-cases-detail',
+        icon: Briefcase,
+      },
+      {
+        title: '案件進度看板',
+        url: '/admin/tasks',
+        icon: CircleDot,
+      },
+    ],
   },
   {
-    title: '已活化資產',
-    url: '/admin/activated-assets-detail',
-    icon: CheckSquare,
+    label: '需求管理',
+    children: [
+      {
+        title: '申請資產需求',
+        url: '/admin/request-asset',
+        icon: FileText,
+      },
+    ],
   },
   {
-    title: '提報資產',
-    url: '/admin/report-asset',
-    icon: Building,
+    label: '成果管理',
+    children: [
+      {
+        title: '活化成果圖表一覽',
+        url: '/admin/generator',
+        icon: ChartSpline,
+      },
+      {
+        title: '媒合成果編輯器',
+        url: '/admin',
+        icon: PencilRuler,
+      },
+    ],
   },
   {
-    title: '申請資產需求',
-    url: '/admin/request-asset',
-    icon: FileText,
-  },
-  {
-    title: 'CASES',
-    url: '/admin/cases',
-    icon: Atom,
-  },
-  {
-    title: 'TASKS',
-    url: '/admin/tasks',
-    icon: Atom,
-  },
-  {
-    title: '圖表一覽',
-    url: '/admin/generator',
-    icon: Atom,
+    label: '消息管理',
+    children: [
+      {
+        title: '最新消息編輯器',
+        url: '/admin',
+        icon: PencilRuler,
+      },
+    ],
   },
 ];
 
@@ -93,22 +131,25 @@ export function AdminSidebar() {
         </span>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {items.map((item, index) => (
+          <SidebarGroup key={index}>
+            {item.label && <SidebarGroupLabel>{item.label}</SidebarGroupLabel>}
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {item.children.map((i) => (
+                  <SidebarMenuItem key={i.title}>
+                    <SidebarMenuButton asChild>
+                      <a href={i.url}>
+                        <i.icon />
+                        <span>{i.title}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
