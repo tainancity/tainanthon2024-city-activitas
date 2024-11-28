@@ -205,8 +205,8 @@ export function InProgressCasesDetailComponent() {
                 </div>
 
                 {/* 表格 */}
-                <div className="relative rounded-md border">
-                  <div className="overflow-auto max-h-[70vh]">
+                <div className="relative rounded-xl border shadow p-4 mt-2 bg-white">
+                  <div className="overflow-y-scroll max-h-[70vh]">
                     <Table>
                       <TableHeader className="sticky top-0 bg-gray-100 z-10">
                         <TableRow>
