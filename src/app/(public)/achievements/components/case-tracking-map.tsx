@@ -173,7 +173,7 @@ const CaseTrackingMap = ({ locations: propLocations }) => {
           locations.map((location) => (
             <Marker
               key={location.id}
-              position={location}
+              position={center}
               title={location.name}
               onClick={() => handleMarkerClick(location)}
               clusterer={clusterer}
