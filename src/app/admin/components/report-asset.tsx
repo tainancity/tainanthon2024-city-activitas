@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Building, X } from 'lucide-react';
 // import { Header } from "@/components/header"
 import { Button } from '@/components/ui/button';
-import { ReportAssetForm } from './report-asset-form';
+import { ReportAssetForm } from '../../components/report-asset-form';
 import { ProposalAssetTable, SortConfig } from './proposal-asset-table';
 import { OneProposalAssetDetail } from './one-proposal-asset-detail';
 import * as XLSX from 'xlsx';

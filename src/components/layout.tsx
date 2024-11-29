@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               <Search />
               <Button
                 onClick={() => {
-                  router.push('/');
+                  router.push('/proposal');
                 }}
               >
                 我想提案
