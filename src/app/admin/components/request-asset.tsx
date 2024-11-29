@@ -2,7 +2,7 @@
 
 // import { Header } from "@/components/header"
 import { Button } from '@/components/ui/button';
-import { RequestAssetForm } from './request-asset-form';
+import { RequestAssetForm } from '../../components/request-asset-form';
 import { useState, useEffect } from 'react';
 import { FileText, X } from 'lucide-react';
 import { RequestAssetTable } from './request-asset-table';
