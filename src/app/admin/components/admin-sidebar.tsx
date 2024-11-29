@@ -93,11 +93,11 @@ const items = [
   {
     label: '成果管理',
     children: [
-      {
-        title: '活化成果圖表一覽',
-        url: '/admin/generator',
-        icon: ChartSpline,
-      },
+      // {
+      //   title: '活化成果圖表一覽',
+      //   url: '/admin/generator',
+      //   icon: ChartSpline,
+      // },
       {
         title: '媒合成果編輯器',
         url: '/admin/achievement-editor',
