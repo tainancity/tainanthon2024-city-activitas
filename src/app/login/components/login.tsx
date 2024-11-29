@@ -52,7 +52,7 @@ export function Login() {
 
       // 檢查用戶角色並導向對應頁面
       if (data.user?.user_metadata?.system_role === 'reporter') {
-        router.push('/reporter-dashboard'); // TODO
+        router.push('/reporter'); // TODO
       } else {
         router.push('/admin');
       }
