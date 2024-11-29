@@ -129,7 +129,7 @@ export function ReportAssetForm({ onSubmitSuccess }: ReportAssetFormProps) {
       console.log('Submitting data:', submitData);
 
       const response = await fetch(
-        'http://localhost:8000/api/v1/proposals/asset-proposals',
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/proposals/asset-proposals`,
         {
           method: 'POST',
           headers: {

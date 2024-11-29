@@ -145,8 +145,8 @@ export function OneIdleAssetDetail({
 
       const isBuilding = assetData['資產類型'].includes('建物');
       const endpoint = isBuilding
-        ? `http://localhost:8000/api/v1/idle/buildings/${assetId}`
-        : `http://localhost:8000/api/v1/idle/lands/${assetId}`;
+        ? `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/idle/buildings/${assetId}`
+        : `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/idle/lands/${assetId}`;
 
       try {
         const response = await fetch(endpoint, {
@@ -220,7 +220,7 @@ export function OneIdleAssetDetail({
 
       try {
         const response = await fetch(
-          `http://localhost:8000/api/v1/idle/buildings/${assetId}/lands`,
+          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/idle/buildings/${assetId}/lands`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -348,14 +348,17 @@ export function OneIdleAssetDetail({
 
       if (Object.keys(assetPayload).length > 0) {
         updates.push(
-          fetch(`http://localhost:8000/api/v1/assets/${formData.assetId}`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(assetPayload),
-          })
+          fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/assets/${formData.assetId}`,
+            {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(assetPayload),
+            }
+          )
         );
       }
 
@@ -384,7 +387,7 @@ export function OneIdleAssetDetail({
         if (Object.keys(buildingPayload).length > 0) {
           updates.push(
             fetch(
-              `http://localhost:8000/api/v1/assets/buildings/${formData.buildingId}`,
+              `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/assets/buildings/${formData.buildingId}`,
               {
                 method: 'PATCH',
                 headers: {
@@ -427,7 +430,7 @@ export function OneIdleAssetDetail({
         if (Object.keys(landPayload).length > 0) {
           updates.push(
             fetch(
-              `http://localhost:8000/api/v1/assets/lands/${formData.landDetailId}`,
+              `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/assets/lands/${formData.landDetailId}`,
               {
                 method: 'PATCH',
                 headers: {

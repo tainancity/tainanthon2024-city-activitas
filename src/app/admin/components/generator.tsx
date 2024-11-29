@@ -102,15 +102,18 @@ export function Generator() {
         try {
           const [idleResponse, casesResponse, activatedResponse] =
             await Promise.all([
-              fetch('http://localhost:8000/api/v1/idle', {
+              fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/idle`, {
                 headers: { Authorization: `Bearer ${token}` },
               }),
-              fetch('http://localhost:8000/api/v1/cases', {
+              fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/cases`, {
                 headers: { Authorization: `Bearer ${token}` },
               }),
-              fetch('http://localhost:8000/api/v1/activated', {
-                headers: { Authorization: `Bearer ${token}` },
-              }),
+              fetch(
+                `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/activated`,
+                {
+                  headers: { Authorization: `Bearer ${token}` },
+                }
+              ),
             ]);
 
           if (!idleResponse.ok || !casesResponse.ok || !activatedResponse.ok) {

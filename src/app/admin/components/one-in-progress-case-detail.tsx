@@ -48,7 +48,7 @@ export function OneInProgressCaseDetail({
 
       try {
         const response = await fetch(
-          `http://localhost:8000/api/v1/cases/${formData['案件ID']}/tasks`,
+          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/cases/${formData['案件ID']}/tasks`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ export function OneInProgressCaseDetail({
     try {
       const token = localStorage.getItem('access_token');
       const response = await fetch(
-        `http://localhost:8000/api/v1/cases/${caseId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/cases/${caseId}`,
         {
           method: 'PUT',
           headers: {

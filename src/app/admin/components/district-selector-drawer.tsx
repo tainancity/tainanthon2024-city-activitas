@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Drawer,
   DrawerClose,
@@ -12,100 +12,111 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer"
-import dynamic from 'next/dynamic'
+} from '@/components/ui/drawer';
+import dynamic from 'next/dynamic';
 
 const DistrictSelectorDrawer = dynamic(
-  () => import('./district-selector-drawer').then(mod => mod.DistrictSelectorDrawerComponent),
+  () =>
+    import('./district-selector-drawer').then(
+      (mod) => mod.DistrictSelectorDrawerComponent
+    ),
   { ssr: false }
-)
+);
 
 type District = {
-  id: number
-  name: string
-}
+  id: number;
+  name: string;
+};
 
 interface DistrictSelectorDrawerProps {
   currentDistrict: string;
-  onDistrictSelect: (district: { name: string, id: number }) => void;
+  onDistrictSelect: (district: { name: string; id: number }) => void;
 }
 
-export function DistrictSelectorDrawerComponent({ 
+export function DistrictSelectorDrawerComponent({
   currentDistrict,
-  onDistrictSelect 
+  onDistrictSelect,
 }: DistrictSelectorDrawerProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [filter, setFilter] = useState('')
-  const [districts, setDistricts] = useState<District[]>([])
-  const [selectedDistrict, setSelectedDistrict] = useState<District | null>(null)
-  const [filteredDistricts, setFilteredDistricts] = useState<District[]>([])
+  const [isOpen, setIsOpen] = useState(false);
+  const [filter, setFilter] = useState('');
+  const [districts, setDistricts] = useState<District[]>([]);
+  const [selectedDistrict, setSelectedDistrict] = useState<District | null>(
+    null
+  );
+  const [filteredDistricts, setFilteredDistricts] = useState<District[]>([]);
 
   useEffect(() => {
     const fetchDistricts = async () => {
       try {
-        const token = localStorage.getItem('access_token')
-        if (!token) return
+        const token = localStorage.getItem('access_token');
+        if (!token) return;
 
-        const response = await fetch('http://localhost:8000/api/v1/common/districts', {
-          headers: {
-            'Authorization': `Bearer ${token}`
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/common/districts`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        })
+        );
 
-        if (!response.ok) throw new Error('Failed to fetch districts')
+        if (!response.ok) throw new Error('Failed to fetch districts');
 
-        const data = await response.json()
-        setDistricts(data)
-        setFilteredDistricts(data)
-        
-        const currentDistrictData = data.find((district: District) => district.name === currentDistrict)
-        setSelectedDistrict(currentDistrictData || null)
+        const data = await response.json();
+        setDistricts(data);
+        setFilteredDistricts(data);
+
+        const currentDistrictData = data.find(
+          (district: District) => district.name === currentDistrict
+        );
+        setSelectedDistrict(currentDistrictData || null);
       } catch (error) {
-        console.error('Error fetching districts:', error)
+        console.error('Error fetching districts:', error);
       }
-    }
+    };
 
-    fetchDistricts()
-  }, [currentDistrict])
+    fetchDistricts();
+  }, [currentDistrict]);
 
   useEffect(() => {
-    const filtered = districts.filter(district => 
+    const filtered = districts.filter((district) =>
       district.name.toLowerCase().includes(filter.toLowerCase())
-    )
-    setFilteredDistricts(filtered)
-  }, [filter, districts])
+    );
+    setFilteredDistricts(filtered);
+  }, [filter, districts]);
 
   const handleOpenChange = (open: boolean) => {
-    setIsOpen(open)
+    setIsOpen(open);
     if (open) {
-      setFilter('')
-      setSelectedDistrict(districts.find(district => district.name === currentDistrict) || null)
+      setFilter('');
+      setSelectedDistrict(
+        districts.find((district) => district.name === currentDistrict) || null
+      );
     }
-  }
+  };
 
   const handleConfirm = () => {
     if (selectedDistrict) {
       onDistrictSelect({
         name: selectedDistrict.name,
-        id: selectedDistrict.id
-      })
+        id: selectedDistrict.id,
+      });
     }
-    setIsOpen(false)
-  }
+    setIsOpen(false);
+  };
 
   const handleCancel = () => {
-    setSelectedDistrict(districts.find(district => district.name === currentDistrict) || null)
-    setIsOpen(false)
-  }
+    setSelectedDistrict(
+      districts.find((district) => district.name === currentDistrict) || null
+    );
+    setIsOpen(false);
+  };
 
   return (
     <Drawer open={isOpen} onOpenChange={handleOpenChange}>
       <DrawerTrigger asChild>
         <div className="cursor-pointer">
-          <Input 
-            value={currentDistrict}
-            readOnly
-          />
+          <Input value={currentDistrict} readOnly />
         </div>
       </DrawerTrigger>
       <DrawerContent>
@@ -126,7 +137,9 @@ export function DistrictSelectorDrawerComponent({
             {filteredDistricts.map((district) => (
               <Button
                 key={district.id}
-                variant={selectedDistrict?.id === district.id ? "default" : "outline"}
+                variant={
+                  selectedDistrict?.id === district.id ? 'default' : 'outline'
+                }
                 onClick={() => setSelectedDistrict(district)}
                 className="min-w-[4.5rem]"
               >
@@ -138,10 +151,12 @@ export function DistrictSelectorDrawerComponent({
         <div className="p-4 mt-2 flex justify-end space-x-2">
           <Button onClick={handleConfirm}>確認修改</Button>
           <DrawerClose asChild>
-            <Button variant="outline" onClick={handleCancel}>取消</Button>
+            <Button variant="outline" onClick={handleCancel}>
+              取消
+            </Button>
           </DrawerClose>
         </div>
       </DrawerContent>
     </Drawer>
-  )
+  );
 }

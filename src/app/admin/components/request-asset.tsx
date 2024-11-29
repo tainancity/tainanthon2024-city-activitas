@@ -56,7 +56,7 @@ export function RequestAsset() {
   const fetchMappingData = async () => {
     try {
       const agencyResponse = await fetch(
-        'http://localhost:8000/api/v1/common/agencies'
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/common/agencies`
       );
       if (!agencyResponse.ok) throw new Error('Failed to fetch agencies');
       const agencies = await agencyResponse.json();
@@ -70,7 +70,7 @@ export function RequestAsset() {
       setAgencyMap(agencyMapping);
 
       const districtResponse = await fetch(
-        'http://localhost:8000/api/v1/common/districts'
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/common/districts`
       );
       if (!districtResponse.ok) throw new Error('Failed to fetch districts');
       const districts = await districtResponse.json();
@@ -93,7 +93,7 @@ export function RequestAsset() {
   const fetchRequests = async () => {
     try {
       const response = await fetch(
-        'http://localhost:8000/api/v1/proposals/asset-requirements',
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/proposals/asset-requirements`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('access_token')}`,

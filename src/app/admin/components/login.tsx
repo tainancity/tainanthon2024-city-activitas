@@ -29,13 +29,16 @@ export function Login() {
       formData.append('username', username);
       formData.append('password', password);
 
-      const response = await fetch('http://localhost:8000/token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/token`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error('登入失敗');

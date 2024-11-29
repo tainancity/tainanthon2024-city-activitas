@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 // import { Header } from '@/app/admin/components/header';
 
 export function Dashboard() {
+  console.log('>>>>>>>>>>>>>>', process.env.NEXT_BACKEND_API_URL);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [assetCounts, setAssetCounts] = useState({
@@ -42,21 +43,30 @@ export function Dashboard() {
             proposalsResponse,
             requestsResponse,
           ] = await Promise.all([
-            fetch('http://localhost:8000/api/v1/idle', {
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/idle`, {
               headers: { Authorization: `Bearer ${token}` },
             }),
-            fetch('http://localhost:8000/api/v1/cases', {
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/cases`, {
               headers: { Authorization: `Bearer ${token}` },
             }),
-            fetch('http://localhost:8000/api/v1/activated', {
-              headers: { Authorization: `Bearer ${token}` },
-            }),
-            fetch('http://localhost:8000/api/v1/proposals/asset-proposals', {
-              headers: { Authorization: `Bearer ${token}` },
-            }),
-            fetch('http://localhost:8000/api/v1/proposals/asset-requirements', {
-              headers: { Authorization: `Bearer ${token}` },
-            }),
+            fetch(
+              `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/activated`,
+              {
+                headers: { Authorization: `Bearer ${token}` },
+              }
+            ),
+            fetch(
+              `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/proposals/asset-proposals`,
+              {
+                headers: { Authorization: `Bearer ${token}` },
+              }
+            ),
+            fetch(
+              `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/proposals/asset-requirements`,
+              {
+                headers: { Authorization: `Bearer ${token}` },
+              }
+            ),
           ]);
 
           if (

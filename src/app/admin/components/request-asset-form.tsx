@@ -96,7 +96,7 @@ export function RequestAssetForm({ onSubmitSuccess }: RequestAssetFormProps) {
       console.log('Submitting data:', submitData);
 
       const response = await fetch(
-        'http://localhost:8000/api/v1/proposals/asset-requirements',
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/proposals/asset-requirements`,
         {
           method: 'POST',
           headers: {

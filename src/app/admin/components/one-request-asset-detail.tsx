@@ -143,7 +143,7 @@ export function OneRequestAssetDetail({
 
       const token = localStorage.getItem('access_token');
       const response = await fetch(
-        `http://localhost:8000/api/v1/proposals/asset-requirements/${request.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/proposals/asset-requirements/${request.id}`,
         {
           method: 'PUT',
           headers: {

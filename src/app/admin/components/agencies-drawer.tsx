@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Drawer,
   DrawerClose,
@@ -11,105 +11,112 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer"
-import dynamic from 'next/dynamic'
+} from '@/components/ui/drawer';
+import dynamic from 'next/dynamic';
 
 const AgenciesDrawer = dynamic(
-  () => import('./agencies-drawer').then(mod => mod.AgenciesDrawerComponent),
+  () => import('./agencies-drawer').then((mod) => mod.AgenciesDrawerComponent),
   { ssr: false }
-)
+);
 
 type ManagementUnit = {
-  id: number
-  name: string
-  note: string
-}
+  id: number;
+  name: string;
+  note: string;
+};
 
 interface AgenciesDrawerProps {
   currentUnit: string;
-  onUnitSelect: (unit: { name: string, id: number }) => void;
+  onUnitSelect: (unit: { name: string; id: number }) => void;
 }
 
-export function AgenciesDrawerComponent ({ 
+export function AgenciesDrawerComponent({
   currentUnit,
-  onUnitSelect 
+  onUnitSelect,
 }: AgenciesDrawerProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [filter, setFilter] = useState('')
-  const [managementUnits, setManagementUnits] = useState<ManagementUnit[]>([])
-  const [selectedUnit, setSelectedUnit] = useState<ManagementUnit | null>(null)
-  const [filteredUnits, setFilteredUnits] = useState<ManagementUnit[]>([])
+  const [isOpen, setIsOpen] = useState(false);
+  const [filter, setFilter] = useState('');
+  const [managementUnits, setManagementUnits] = useState<ManagementUnit[]>([]);
+  const [selectedUnit, setSelectedUnit] = useState<ManagementUnit | null>(null);
+  const [filteredUnits, setFilteredUnits] = useState<ManagementUnit[]>([]);
 
   // 從 API 獲取管理機關資料
   useEffect(() => {
     const fetchManagementUnits = async () => {
       try {
-        const token = localStorage.getItem('access_token')
-        if (!token) return
+        const token = localStorage.getItem('access_token');
+        if (!token) return;
 
-        const response = await fetch('http://localhost:8000/api/v1/common/agencies', {
-          headers: {
-            'Authorization': `Bearer ${token}`
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/common/agencies`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        })
+        );
 
-        if (!response.ok) throw new Error('Failed to fetch management units')
+        if (!response.ok) throw new Error('Failed to fetch management units');
 
-        const data = await response.json()
-        setManagementUnits(data)
-        setFilteredUnits(data)
-        
+        const data = await response.json();
+        setManagementUnits(data);
+        setFilteredUnits(data);
+
         // 設置當前選中的單位
-        const currentUnitData = data.find((unit: ManagementUnit) => unit.name === currentUnit)
-        setSelectedUnit(currentUnitData || null)
+        const currentUnitData = data.find(
+          (unit: ManagementUnit) => unit.name === currentUnit
+        );
+        setSelectedUnit(currentUnitData || null);
       } catch (error) {
-        console.error('Error fetching management units:', error)
+        console.error('Error fetching management units:', error);
       }
-    }
+    };
 
-    fetchManagementUnits()
-  }, [currentUnit])
+    fetchManagementUnits();
+  }, [currentUnit]);
 
   // 過濾邏輯
   useEffect(() => {
-    const filtered = managementUnits.filter(unit => 
-      (unit.name?.toLowerCase() || '').includes(filter.toLowerCase()) ||
-      (unit.note?.toLowerCase() || '').includes(filter.toLowerCase())
-    )
-    setFilteredUnits(filtered)
-  }, [filter, managementUnits])
+    const filtered = managementUnits.filter(
+      (unit) =>
+        (unit.name?.toLowerCase() || '').includes(filter.toLowerCase()) ||
+        (unit.note?.toLowerCase() || '').includes(filter.toLowerCase())
+    );
+    setFilteredUnits(filtered);
+  }, [filter, managementUnits]);
 
   const handleOpenChange = (open: boolean) => {
-    setIsOpen(open)
+    setIsOpen(open);
     if (open) {
-      setFilter('')
-      setSelectedUnit(managementUnits.find(unit => unit.name === currentUnit) || null)
+      setFilter('');
+      setSelectedUnit(
+        managementUnits.find((unit) => unit.name === currentUnit) || null
+      );
     }
-  }
+  };
 
   const handleConfirm = () => {
     if (selectedUnit) {
       onUnitSelect({
         name: selectedUnit.name,
-        id: selectedUnit.id
+        id: selectedUnit.id,
       });
     }
-    setIsOpen(false)
-  }
+    setIsOpen(false);
+  };
 
   const handleCancel = () => {
-    setSelectedUnit(managementUnits.find(unit => unit.name === currentUnit) || null)
-    setIsOpen(false)
-  }
+    setSelectedUnit(
+      managementUnits.find((unit) => unit.name === currentUnit) || null
+    );
+    setIsOpen(false);
+  };
 
   return (
     <Drawer open={isOpen} onOpenChange={handleOpenChange}>
       <DrawerTrigger asChild>
         <div className="cursor-pointer">
-          <Input 
-            value={currentUnit}
-            readOnly
-          />
+          <Input value={currentUnit} readOnly />
         </div>
       </DrawerTrigger>
       <DrawerContent>
@@ -130,13 +137,15 @@ export function AgenciesDrawerComponent ({
             {filteredUnits.map((unit) => (
               <Button
                 key={unit.id}
-                variant={selectedUnit?.id === unit.id ? "default" : "outline"}
+                variant={selectedUnit?.id === unit.id ? 'default' : 'outline'}
                 onClick={() => setSelectedUnit(unit)}
                 className="min-w-[150px] justify-start"
               >
                 <div className="text-left">
                   <div>{unit.name}</div>
-                  <div className="text-sm text-muted-foreground">{unit.note}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {unit.note}
+                  </div>
                 </div>
               </Button>
             ))}
@@ -145,10 +154,12 @@ export function AgenciesDrawerComponent ({
         <div className="p-4 mt-2 flex justify-end space-x-2">
           <Button onClick={handleConfirm}>確認修改</Button>
           <DrawerClose asChild>
-            <Button variant="outline" onClick={handleCancel}>取消</Button>
+            <Button variant="outline" onClick={handleCancel}>
+              取消
+            </Button>
           </DrawerClose>
         </div>
       </DrawerContent>
     </Drawer>
-  )
+  );
 }

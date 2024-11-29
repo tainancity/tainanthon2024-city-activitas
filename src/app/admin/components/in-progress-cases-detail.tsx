@@ -63,11 +63,14 @@ export function InProgressCasesDetailComponent() {
       }
 
       try {
-        const response = await fetch('http://localhost:8000/api/v1/cases', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/cases`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) throw new Error('Failed to fetch cases');
         const data = await response.json();
