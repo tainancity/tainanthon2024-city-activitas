@@ -111,14 +111,14 @@ export const CaseTrackingPage = () => {
           .from('asset_cases_view')
           .select('*');
 
-        if (caseError) throw caseError;
+        // if (caseError) throw caseError;
 
         // Fetch meetings from the `case_meeting_conclusions` table
         const { data: meetingData, error: meetingError } = await supabase
           .from('case_meeting_conclusions')
           .select('case_id, meeting_date, content');
 
-        if (meetingError) throw meetingError;
+        // if (meetingError) throw meetingError;
 
         // Fetch tasks from the `case_tasks` table
         const { data: taskData, error: taskError } = await supabase
@@ -127,17 +127,17 @@ export const CaseTrackingPage = () => {
             'case_id, id, agency_id, task_content, status, start_date, complete_date, due_date, note'
           );
 
-        if (taskError) throw taskError;
+        // if (taskError) throw taskError;
 
         // Fetch agency names from the `agencies` table
         const { data: agencyData, error: agencyError } = await supabase
           .from('agencies')
           .select('id, name');
 
-        if (agencyError) throw agencyError;
+        // if (agencyError) throw agencyError;
 
         // Create a lookup map for agency names by ID
-        const agencyMap = agencyData.reduce(
+        const agencyMap = (agencyData ?? []).reduce(
           (map, agency) => {
             map[agency.id] = agency.name;
             return map;
@@ -146,16 +146,16 @@ export const CaseTrackingPage = () => {
         );
 
         // Merge meetings and tasks into cases
-        const mergedCases = caseData.map((caseItem) => ({
+        const mergedCases = (caseData ?? []).map((caseItem) => ({
           ...caseItem,
-          meetings: meetingData
+          meetings: (meetingData ?? [])
             .filter((meeting) => meeting.case_id === caseItem.案件ID) // Match meetings by `case_id`
             .map((meeting) => ({
               id: meeting.case_id,
               date: meeting.meeting_date,
               content: meeting.content,
             })),
-          tasks: taskData
+          tasks: (taskData ?? [])
             .filter((task) => task.case_id === caseItem.案件ID) // Match tasks by `case_id`
             .map((task) => ({
               id: task.id,
