@@ -1,7 +1,7 @@
 'use client';
 
 import supabase from '@/lib/supabaseClient';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -103,79 +103,82 @@ export const CaseTrackingPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Fetch data from Supabase
-  const fetchData = async () => {
-    try {
-      // Fetch cases from the `asset_cases_view` table
-      const { data: caseData, error: caseError } = await supabase
-        .from('asset_cases_view')
-        .select('*');
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch cases from the `asset_cases_view` table
+        const { data: caseData, error: caseError } = await supabase
+          .from('asset_cases_view')
+          .select('*');
 
-      if (caseError) throw caseError;
+        if (caseError) throw caseError;
 
-      // Fetch meetings from the `case_meeting_conclusions` table
-      const { data: meetingData, error: meetingError } = await supabase
-        .from('case_meeting_conclusions')
-        .select('case_id, meeting_date, content');
+        // Fetch meetings from the `case_meeting_conclusions` table
+        const { data: meetingData, error: meetingError } = await supabase
+          .from('case_meeting_conclusions')
+          .select('case_id, meeting_date, content');
 
-      if (meetingError) throw meetingError;
+        if (meetingError) throw meetingError;
 
-      // Fetch tasks from the `case_tasks` table
-      const { data: taskData, error: taskError } = await supabase
-        .from('case_tasks')
-        .select(
-          'case_id, id, agency_id, task_content, status, start_date, complete_date, due_date, note'
+        // Fetch tasks from the `case_tasks` table
+        const { data: taskData, error: taskError } = await supabase
+          .from('case_tasks')
+          .select(
+            'case_id, id, agency_id, task_content, status, start_date, complete_date, due_date, note'
+          );
+
+        if (taskError) throw taskError;
+
+        // Fetch agency names from the `agencies` table
+        const { data: agencyData, error: agencyError } = await supabase
+          .from('agencies')
+          .select('id, name');
+
+        if (agencyError) throw agencyError;
+
+        // Create a lookup map for agency names by ID
+        const agencyMap = agencyData.reduce(
+          (map, agency) => {
+            map[agency.id] = agency.name;
+            return map;
+          },
+          {} as Record<number, string>
         );
 
-      if (taskError) throw taskError;
+        // Merge meetings and tasks into cases
+        const mergedCases = caseData.map((caseItem) => ({
+          ...caseItem,
+          meetings: meetingData
+            .filter((meeting) => meeting.case_id === caseItem.案件ID) // Match meetings by `case_id`
+            .map((meeting) => ({
+              id: meeting.case_id,
+              date: meeting.meeting_date,
+              content: meeting.content,
+            })),
+          tasks: taskData
+            .filter((task) => task.case_id === caseItem.案件ID) // Match tasks by `case_id`
+            .map((task) => ({
+              id: task.id,
+              demanding_agencies: agencyMap[task.agency_id] || 'Unknown Agency', // Map agency name
+              content: task.task_content,
+              details: task.note || '', // Optional field
+              status: task.status,
+              start_date: task.start_date,
+              end_date: task.complete_date,
+              estimated_completion_date: task.due_date,
+            })),
+        }));
+        setCases(mergedCases);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      // Fetch agency names from the `agencies` table
-      const { data: agencyData, error: agencyError } = await supabase
-        .from('agencies')
-        .select('id, name');
+    fetchData();
+  }, []);
 
-      if (agencyError) throw agencyError;
-
-      // Create a lookup map for agency names by ID
-      const agencyMap = agencyData.reduce(
-        (map, agency) => {
-          map[agency.id] = agency.name;
-          return map;
-        },
-        {} as Record<number, string>
-      );
-
-      // Merge meetings and tasks into cases
-      const mergedCases = caseData.map((caseItem) => ({
-        ...caseItem,
-        meetings: meetingData
-          .filter((meeting) => meeting.case_id === caseItem.案件ID) // Match meetings by `case_id`
-          .map((meeting) => ({
-            id: meeting.case_id,
-            date: meeting.meeting_date,
-            content: meeting.content,
-          })),
-        tasks: taskData
-          .filter((task) => task.case_id === caseItem.案件ID) // Match tasks by `case_id`
-          .map((task) => ({
-            id: task.id,
-            demanding_agencies: agencyMap[task.agency_id] || 'Unknown Agency', // Map agency name
-            content: task.task_content,
-            details: task.note || '', // Optional field
-            status: task.status,
-            start_date: task.start_date,
-            end_date: task.complete_date,
-            estimated_completion_date: task.due_date,
-          })),
-      }));
-      setCases(mergedCases);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  fetchData();
   const [selectedCase, setSelectedCase] = useState<Case | null>(null);
   const [editingCase, setEditingCase] = useState<Case | null>(null);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
