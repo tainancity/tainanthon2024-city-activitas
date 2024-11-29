@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import {
   LayoutDashboard,
   Home,
@@ -117,8 +118,26 @@ const items = [
   },
 ];
 
+type UserData = {
+  email: string;
+  user_metadata?: {
+    system_role?: string;
+  };
+};
+
 export function AdminSidebar() {
   const router = useRouter();
+
+  const [user, setUser] = useState<UserData | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        setUser(JSON.parse(userData));
+      }
+    }
+  }, []);
 
   return (
     <Sidebar>
@@ -157,7 +176,7 @@ export function AdminSidebar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton>
-                  <User2 /> Username
+                  <User2 /> {user?.email || '使用者'}
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -166,10 +185,22 @@ export function AdminSidebar() {
                 className="w-[--radix-popper-anchor-width]"
               >
                 <DropdownMenuItem>
-                  <span>Account</span>
+                  <span>
+                    {user?.user_metadata?.system_role === 'admin' && (
+                      <span className="text-sm text-gray-500 mt-2">管理者</span>
+                    )}
+                  </span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push('/login')}>
-                  <span>Sign out</span>
+                <DropdownMenuItem
+                  onClick={() => {
+                    if (typeof window !== 'undefined') {
+                      localStorage.removeItem('access_token');
+                      localStorage.removeItem('user');
+                      router.push('/login');
+                    }
+                  }}
+                >
+                  <span>登出</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
