@@ -62,7 +62,7 @@ export function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center shadow">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-center flex flex-col space-y-2">
