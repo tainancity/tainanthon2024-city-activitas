@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CityActivitas 臺南市政府財政稅務局閒置資產管理平台
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 啟動及指令說明
+```shell
+npm intall
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 啟動開發環境
+```shell
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 資料夾結構及用途
+- app: 頁面及相關元件等
+- components: 共用元件
+- hooks: React hooks
+- lib: util, db client 等
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 環境變數說明
+- NEXT_PUBLIC_SUPABASE_URL: supabase url
+- NEXT_PUBLIC_SUPABASE_ANON_KEY: supabase anon key
+- NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: Google Map API key
+- NEXT_PUBLIC_BACKEND_API_URL: 後端 API url
 
-## Learn More
+## 套件
+### 框架
+- Next.js v14.2.16
+- TypeScript v5
 
-To learn more about Next.js, take a look at the following resources:
+### 第三方套件
+- UI: shadcn/ui
+- Baas: supabase-js
+- Google 地圖 API: react-google-maps
+- 文字編輯器: tiptap
+- 圖表庫: plotly.js
+- Excel 匯出: xlsx
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
