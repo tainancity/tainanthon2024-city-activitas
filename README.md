@@ -35,3 +35,6 @@ npm run dev
 - 圖表庫: plotly.js
 - Excel 匯出: xlsx
 
+## 服務進入點
+- / 前台 (一般民眾)
+- /admin (承辦、資產管理員)
