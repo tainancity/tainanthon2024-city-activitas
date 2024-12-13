@@ -100,8 +100,8 @@ export function AssetImagesTab({ assetId }: AssetImagesTabProps) {
   const sanitizeFileName = (fileName: string) => {
     // 取得檔案副檔名
     const ext = fileName.split('.').pop();
-    // 生成隨機檔名 (timestamp + 隨機字串)
-    const randomName = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
+    // 生成隨機檔名 (timestamp)
+    const randomName = Date.now();
     return `${randomName}.${ext}`;
   };
 
